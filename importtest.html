@@ -25,13 +25,13 @@
 
   <script>
     async function loadJSON() {
-      const match = window.location.pathname.match(/\/import:(.+)$/);
-      if (!match) {
-        document.getElementById('json-content').textContent = "No '/import:<url>' found in the URL path.";
+      const urlParams = new URLSearchParams(window.location.search);
+      const jsonUrl = urlParams.get("import");
+
+      if (!jsonUrl) {
+        document.getElementById('json-content').textContent = "No '?import=<url>' parameter found.";
         return;
       }
-
-      const jsonUrl = decodeURIComponent(match[1]);
 
       try {
         const res = await fetch(jsonUrl);
